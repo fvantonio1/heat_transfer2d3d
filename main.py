@@ -24,8 +24,8 @@ class NeuralNetwork:
 
         input_name = model.get_inputs()[0].name
 
-        x_step = 0.01
-        y_step = 0.01
+        x_step = 0.02
+        y_step = 0.02
         xx = np.linspace(0.0, parameters['largura']/1000, int((parameters['espessura'])/x_step))
         yy = np.linspace(0.0, parameters['espessura']/1000, int((parameters['espessura'])/y_step))
         
@@ -52,7 +52,12 @@ class NeuralNetwork:
 
         inputs = scale_data(inputs, scalers, scale_temp=False)
 
-        outputs = model.run(None, {input_name: inputs})[0]
+        outputs = np.zeros((inputs.shape[0], 1))
+
+        for i in range(0, inputs.shape[0], 128):
+            outputs[i:i+128] = model.run(None, {input_name: inputs[i:i+128]})[0]
+
+        #outputs = model.run(None, {input_name: inputs})[0]
 
         x = scalers[-2].inverse_transform(inputs[:, -2].reshape(-1, 1)).reshape(-1)
         y = scalers[-1].inverse_transform(inputs[:, -1].reshape(-1, 1)).reshape(-1)
@@ -296,7 +301,7 @@ class MainWindow(QMainWindow):
                 if lim.get('x01', None):
                     plt.vlines(x=lim['x01']/1000, ymin=-0.00, ymax=parameters['espessura']/1000, colors='black', label=f'x 0.1ºC = {str(round(lim["x01"], 1))}mm')
         
-            plt.legend()
+            plt.legend(loc='upper left')
 
         self.current_figure = fig
         

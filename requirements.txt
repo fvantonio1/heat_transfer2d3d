@@ -1,0 +1,5 @@
+matplotlib==3.10.1
+numpy==1.24.0
+onnxruntime==1.21.0
+PySide6==6.9.0
+scikit-learn==1.6.1

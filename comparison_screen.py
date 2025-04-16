@@ -124,7 +124,7 @@ class DataComparisonScreen(QWidget):
 
         ax1 = self.comparison_figure.add_subplot(121)
 
-        ax1 = plot_temperatura_pico(ax1, file_data)
+        ax1 = plot_temperatura_pico(ax1, file_data, title="Temperatura de pico (Simulação)")
 
         #file_data[:, -1] = yhat
 
@@ -132,7 +132,7 @@ class DataComparisonScreen(QWidget):
 
         ax2 = plot_temperatura_pico(ax2, np.column_stack((
             file_data[:, 0], file_data[:, 1], yhat
-        )))
+        )), title='Temperatura de pico (IA)')
         
         self.comparison_canvas.draw()
     

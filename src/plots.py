@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from scipy.interpolate import griddata
 import numpy as np
 
-def plot_temperatura_pico(fig, tm, plot_points=False):
+def plot_temperatura_pico(fig, tm, plot_points=False, title="Temperatura de Pico (°C)"):
     x, y = tm[:,0], tm[:,1]
     X, Y = np.meshgrid(np.unique(x), np.unique(y))
     s_grid = griddata((x, y), tm[:,2], (X, Y), method='nearest')
@@ -20,6 +20,6 @@ def plot_temperatura_pico(fig, tm, plot_points=False):
     plt.colorbar(label='Temperatura (°C)')
     plt.xlabel('Largura (m)')
     plt.ylabel('Espessura (m)')
-    plt.title("Temperatura de Pico (°C)", fontsize=20)
+    plt.title(title, fontsize=20)
     #plt.axis('equal')
     return fig
